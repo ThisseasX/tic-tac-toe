@@ -1,0 +1,48 @@
+.card
+  border: 1px solid black
+  padding: 16px
+  box-shadow: 0 0 16px 8px #d3d3d3
+  
+.grid
+  cursor: pointer
+  display: grid
+  width: 300px
+  grid-template-columns: repeat(3, 100px)
+  grid-template-rows: repeat(3, 100px)
+  border: 1px solid black
+  & > div
+    user-select: none
+    display: flex
+    justify-content: center
+    align-items: center
+    font-size: 128px
+    border: 1px solid black
+
+.X
+  color: blue
+.O
+  color: red
+
+.status
+  border: 2px solid black
+  border-bottom: none
+  padding: 8px 16px
+  text-align: center
+  margin: 0
+  width: 302px
+  box-sizing: border-box
+  font-size: 30px
+
+.reset
+  cursor: pointer
+  border: 2px solid black
+  border-top: none
+  font-size: 30px
+  width: 302px
+  padding: 8px 16px
+  outline: none
+  background: none
+  &:hover
+    background-color: #e0e0e0
+  &:active
+    background-color: #bdbdbd
