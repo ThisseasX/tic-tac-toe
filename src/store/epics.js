@@ -6,39 +6,29 @@ import {
   cellClicked,
 } from './actions';
 import { ofType, combineEpics } from 'redux-observable';
-import { map, mergeMapTo } from 'rxjs/operators';
+import { map, filter, mergeMap } from 'rxjs/operators';
 
 const noAction = { type: 'NO_ACTION' };
 
 const winningCombinations = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
   [1, 4, 7],
   [2, 5, 8],
-  [3, 6, 9],
-  [1, 5, 9],
-  [3, 5, 7],
+  [0, 4, 8],
+  [2, 4, 6],
 ];
 
 const clickCellEpic = (action$, state$) =>
   action$.pipe(
     ofType(clickCell),
-    map(({ payload }) => {
+    filter(({ payload }) => {
       const { grid, winner } = state$.value.game;
-
-      if (grid[payload] || winner) {
-        return noAction;
-      } else {
-        return cellClicked(payload);
-      }
+      return !grid[payload] && !winner;
     }),
-  );
-
-const cellClickedEpic = action$ =>
-  action$.pipe(
-    ofType(cellClicked),
-    mergeMapTo([calculateWinner(), changePlayer()]),
+    mergeMap(({ payload }) => [cellClicked(payload), calculateWinner(), changePlayer()]),
   );
 
 const calculateWinnerEpic = (action$, state$) =>
@@ -47,8 +37,8 @@ const calculateWinnerEpic = (action$, state$) =>
     map(() => {
       const { grid, currentPlayer } = state$.value.game;
 
-      const won = winningCombinations.some(cond =>
-        cond.every(cell => grid[cell - 1] === currentPlayer),
+      const won = winningCombinations.some(condition =>
+        condition.every(cell => grid[cell] === currentPlayer),
       );
 
       if (won) {
@@ -61,6 +51,6 @@ const calculateWinnerEpic = (action$, state$) =>
     }),
   );
 
-const gameEpic = combineEpics(clickCellEpic, cellClickedEpic, calculateWinnerEpic);
+const gameEpic = combineEpics(clickCellEpic, calculateWinnerEpic);
 
 export { gameEpic };
