@@ -2,6 +2,7 @@
   "name": "tic-tac-toe",
   "description": "Tic-Tac-Toe App with React, Redux, Redux Observables, RxJS.",
   "homepage": "https://thisseasx.github.io/tic-tac-toe",
+  "author": "ThisseasX",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

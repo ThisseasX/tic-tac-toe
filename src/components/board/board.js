@@ -12,10 +12,8 @@ const getSign = currentPlayer =>
 const Board = ({ winner, currentPlayer, grid, clickCell, reset }) => {
   const handleClick = e => {
     e.preventDefault();
-
-    const index = e.target.dataset.cell;
-
-    clickCell(index);
+    const cell = e.target.dataset.cell;
+    clickCell(cell);
   };
 
   return (
@@ -28,14 +26,14 @@ const Board = ({ winner, currentPlayer, grid, clickCell, reset }) => {
           : `Current Player: ${getSign(currentPlayer)}`}
       </h1>
       <div className={classes.grid}>
-        {grid.map((x, i) => (
+        {grid.map((cell, index) => (
           <div
-            key={i}
-            className={classes[getSign(x)]}
-            data-cell={i}
+            key={index}
+            className={classes[getSign(cell)]}
+            data-cell={index}
             onMouseDown={handleClick}
           >
-            {getSign(x)}
+            {getSign(cell)}
           </div>
         ))}
       </div>
