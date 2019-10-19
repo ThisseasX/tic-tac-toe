@@ -15,7 +15,7 @@ export const gameReducer = handleActions(
     }),
     [changePlayer]: state => ({
       ...state,
-      currentPlayer: state.currentPlayer === 1 ? 2 : 1,
+      currentPlayer: (state.currentPlayer % 2) + 1,
     }),
     [cellClicked]: (state, { payload }) => ({
       ...state,
