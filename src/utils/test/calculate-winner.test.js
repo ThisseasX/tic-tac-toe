@@ -8,7 +8,7 @@ const grids = [
   [[0, 0, 0, 0, 0, 0, 0, 0, 0], undefined],
 ];
 
-describe('asd', () => {
+describe('Tic-Tac-Toe', () => {
   grids.forEach(([grid, expected]) => {
     it(`Grid: ${grid} - Winner: ${expected}`, () => {
       expect(calculateWinner(grid)).toBe(expected);
