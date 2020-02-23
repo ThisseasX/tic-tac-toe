@@ -11,7 +11,6 @@ const getSign = currentPlayer =>
 
 const Board = ({ winner, currentPlayer, grid, clickCell, reset }) => {
   const handleClick = e => {
-    e.preventDefault();
     const cell = e.target.dataset.cell;
     clickCell(cell);
   };
